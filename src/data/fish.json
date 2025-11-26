@@ -1,0 +1,129 @@
+[
+  {
+    "id": "rainbow_trout",
+    "common_name": "Rainbow Trout",
+    "scientific_name": "Oncorhynchus mykiss",
+    "description": "Popular sport fish found in cold streams and lakes."
+  },
+  {
+    "id": "brown_trout",
+    "common_name": "Brown Trout",
+    "scientific_name": "Salmo trutta",
+    "description": "Prefers deeper, cooler water and rivers with structure."
+  },
+  {
+    "id": "cutthroat_trout",
+    "common_name": "Cutthroat Trout",
+    "scientific_name": "Oncorhynchus clarkii",
+    "description": "Native trout with distinctive red/orange throat markings."
+  },
+  {
+    "id": "brook_trout",
+    "common_name": "Brook Trout",
+    "scientific_name": "Salvelinus fontinalis",
+    "description": "Cold-water trout often found in small streams and ponds."
+  },
+  {
+    "id": "kokanee_salmon",
+    "common_name": "Kokanee Salmon",
+    "scientific_name": "Oncorhynchus nerka",
+    "description": "Landlocked sockeye salmon, popular in lakes for trolling."
+  },
+  {
+    "id": "lake_trout",
+    "common_name": "Lake Trout",
+    "scientific_name": "Salvelinus namaycush",
+    "description": "Large predator trout found in deep, cold lakes."
+  },
+  {
+    "id": "westslope_cutthroat",
+    "common_name": "Westslope Cutthroat Trout",
+    "scientific_name": "Oncorhynchus clarkii lewisi",
+    "description": "Native Montana trout, prized by fly anglers."
+  },
+  {
+    "id": "whitefish",
+    "common_name": "Mountain Whitefish",
+    "scientific_name": "Prosopium williamsoni",
+    "description": "Common in rivers, often caught incidentally by anglers targeting trout."
+  },
+  {
+    "id": "northern_pike",
+    "common_name": "Northern Pike",
+    "scientific_name": "Esox lucius",
+    "description": "Aggressive predator found in lakes and slow rivers."
+  },
+  {
+    "id": "yellow_perch",
+    "common_name": "Yellow Perch",
+    "scientific_name": "Perca flavescens",
+    "description": "Small schooling fish, good for panfish meals."
+  },
+  {
+    "id": "walleye",
+    "common_name": "Walleye",
+    "scientific_name": "Sander vitreus",
+    "description": "Popular game fish, often caught at night in lakes and rivers."
+  },
+  {
+    "id": "smallmouth_bass",
+    "common_name": "Smallmouth Bass",
+    "scientific_name": "Micropterus dolomieu",
+    "description": "Favorite sport fish in warm rivers and reservoirs."
+  },
+  {
+    "id": "largemouth_bass",
+    "common_name": "Largemouth Bass",
+    "scientific_name": "Micropterus salmoides",
+    "description": "Common in reservoirs and ponds, strong fighters."
+  },
+  {
+    "id": "brook_bass",
+    "common_name": "Rock Bass",
+    "scientific_name": "Ambloplites rupestris",
+    "description": "Small panfish, found in rivers and lakes."
+  },
+  {
+    "id": "rainbow_bowfin",
+    "common_name": "Bowfin",
+    "scientific_name": "Amia calva",
+    "description": "Rare in Montana waters, strong predator fish."
+  },
+  {
+    "id": "crappie",
+    "common_name": "Black Crappie",
+    "scientific_name": "Pomoxis nigromaculatus",
+    "description": "Popular panfish, schooling in quiet areas of lakes."
+  },
+  {
+    "id": "bull_trout",
+    "common_name": "Bull Trout",
+    "scientific_name": "Salvelinus confluentus",
+    "description": "Native trout that requires cold, clean water."
+  },
+  {
+    "id": "kokanee_salmon_red",
+    "common_name": "Red Kokanee Salmon",
+    "scientific_name": "Oncorhynchus nerka",
+    "description": "Landlocked sockeye, turns red during spawning season."
+  },
+  {
+    "id": "arctic_grayling",
+    "common_name": "Arctic Grayling",
+    "scientific_name": "Thymallus arcticus",
+    "description": "Beautiful, rare trout-like fish with large dorsal fin."
+  },
+  {
+    "id": "yellowstone_bass",
+    "common_name": "Yellowstone Cutthroat",
+    "scientific_name": "Oncorhynchus clarkii bouvieri",
+    "description": "Prized native trout of the Yellowstone River system."
+  },
+  {
+  "id": "mountain_whitefish",
+  "common_name": "Mountain Whitefish",
+  "scientific_name": "Prosopium williamsoni",
+  "description": "Common in cold rivers and streams, often overlooked by anglers."
+}
+
+]

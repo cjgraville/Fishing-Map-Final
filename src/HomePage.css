@@ -1,0 +1,36 @@
+.home-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #f0f4f8;
+}
+
+.home-title {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.home-subtitle {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 30px;
+  max-width: 400px;
+}
+
+.enter-button {
+  padding: 12px 24px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background-color: #2a9d8f;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.enter-button:hover {
+  background-color: #21867c;
+}

@@ -1,0 +1,69 @@
+[
+  {
+    "id": "gallatin",
+    "name": "Gallatin River",
+    "type": "river",
+    "segments": [
+      {
+        "segment_id": "gallatin_1",
+        "name": "Gallatin – Canyon Section",
+        "coordinates": [45.4512, -111.2253],
+        "description": "Fast water, pocket water, great for trout.",
+        "fish": ["rainbow_trout", "brown_trout"]
+      },
+      {
+        "segment_id": "gallatin_2",
+        "name": "Gallatin River – Fishing Access ",
+        "coordinates": [45.85996, -111.29005],
+        "description": "Slower water, great for dry flies.",
+        "fish": ["rainbow_trout", "mountain_whitefish"]
+      },
+      {
+        "segment_id": "gallatin_3",
+        "name": "Gallatin River – Axtell Bridge Fishing Access ",
+        "coordinates": [45.62339, -111.20486],
+        "description": "Slower water, great for dry flies.",
+        "fish": ["rainbow_trout", "mountain_whitefish"]
+      },
+      {
+        "segment_id": "gallatin_4",
+        "name": "Gallatin River – Cameron Bridge Fishing Access ",
+        "coordinates": [45.73773, -111.22012],
+        "description": "Slower water, great for dry flies.",
+        "fish": ["rainbow_trout", "mountain_whitefish"]
+      },
+      {
+        "segment_id": "gallatin_5",
+        "name": "East Fork Gallatin River – Cherry River Fishing Access ",
+        "coordinates": [45.72433, -111.06495],
+        "description": "Slower water, great for dry flies.",
+        "fish": ["rainbow_trout", "mountain_whitefish"]
+      },
+      {
+        "segment_id": "gallatin_6",
+        "name": "Gallatin River – Kirk Wildlife Refuge Fishing Access ",
+        "coordinates": [45.51036, -111.26106],
+        "description": "Slower water, great for dry flies.",
+        "fish": ["rainbow_trout", "mountain_whitefish"]
+      },
+      {
+        "segment_id": "gallatin_7",
+        "name": "Gallatin River – Shed's Bridge Fishing Access ",
+        "coordinates": [45.67378, -111.20919],
+        "description": "Slower water, great for dry flies.",
+        "fish": ["rainbow_trout", "mountain_whitefish"]
+      },
+      {
+        "segment_id": "gallatin_8",
+        "name": "Gallatin River – Erwin Bridge Fishing Access ",
+        "coordinates": [45.76922, -111.23904],
+        "description": "Slower water, great for dry flies.",
+        "fish": ["rainbow_trout", "mountain_whitefish"]
+      }
+    
+
+    ]
+    
+  }
+  
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "hyalite_lake",
+    "name": "Hyalite Reservoir",
+    "type": "lake",
+    "coordinates": [45.4808, -110.9671],
+    "description": "High mountain reservoir popular for trout.",
+    "fish": ["rainbow_trout", "brook_trout", "cutthroat_trout"]
+  },
+
+  {
+    "id": "bozeman_pond",
+    "name": "Bozeman Pond",
+    "type": "pond",
+    "coordinates": [45.6732, -111.0818],
+    "fish": ["rainbow_trout"]
+  }
+]
