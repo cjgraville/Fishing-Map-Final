@@ -60,10 +60,30 @@
         "description": "Slower water, great for dry flies.",
         "fish": ["rainbow_trout", "mountain_whitefish"]
       }
-    
-
     ]
-    
+  },
+  {
+    "id": "madison",
+    "name": "Madison River",
+    "type": "river",
+    "segments": [
+      {
+        "segment_id": "madison_1",
+        "name": "Madison River – Damselfly Fishing Acess",
+        "coordinates": [45.6232, -111.54809],
+        "description": "Fast water, pocket water, great for trout.",
+        "fish": ["rainbow_trout", "brown_trout"]
+      },
+      {
+        "segment_id": "madison_2",
+        "name": "Madison River – Fishing Access ",
+        "coordinates" : [45.34442, -111.72309],
+        "description": "Slower water, great for dry flies.",
+        "fish": ["rainbow_trout", "mountain_whitefish"]
+      }
+      
+    ]
   }
+  
   
 ]

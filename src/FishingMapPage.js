@@ -34,36 +34,67 @@ export default function FishingMapPage() {
     }))
   ];
 
-  const handleSearch = () => {
-    const found = waters.find(
-      w => w.name.toLowerCase() === searchText.toLowerCase()
-    );
-
-    if (found) setSelectedWater(found);
-    else alert('Water body not found!');
-  };
+  // Filtered search results
+  const filteredWaters = searchText
+    ? waters.filter(w =>
+        w.name.toLowerCase().includes(searchText.toLowerCase())
+      )
+    : [];
 
   return (
-    <div className="map-page-container">
-      <h1 className="map-title">Bozeman Fishing Map</h1>
+    <div style={{ display: 'flex', height: '100vh' }}>
+      {/* Left: Map + InfoPanel */}
+      <div style={{ flex: 2, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '10px' }}>
+          <h1>Bozeman Fishing Map</h1>
+          <input
+            type="text"
+            placeholder="Search for river or lake..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            style={{ width: '100%', padding: '5px', fontSize: '16px' }}
+          />
+        </div>
 
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Enter river or lake..."
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+        <MapComponent
+          waters={waters}
+          selectedWater={selectedWater}
+          setSelectedWater={setSelectedWater}
         />
-        <button onClick={handleSearch}>Search</button>
+
+        {selectedWater && <InfoPanel water={selectedWater} fish={fish} />}
       </div>
 
-      <MapComponent
-        waters={waters}
-        selectedWater={selectedWater}
-        setSelectedWater={setSelectedWater}
-      />
-
-      {selectedWater && <InfoPanel water={selectedWater} fish={fish} />}
+      {/* Right: Search Results */}
+      <div
+        style={{
+          flex: 1,
+          borderLeft: '1px solid gray',
+          padding: '10px',
+          overflowY: 'auto'
+        }}
+      >
+        <h3>Search Results</h3>
+        {filteredWaters.length === 0 ? (
+          <p>No results</p>
+        ) : (
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            {filteredWaters.map((w) => (
+              <li
+                key={w.id}
+                onClick={() => setSelectedWater(w)}
+                style={{
+                  cursor: 'pointer',
+                  padding: '5px 0',
+                  borderBottom: '1px solid #ccc'
+                }}
+              >
+                {w.name} ({w.type})
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

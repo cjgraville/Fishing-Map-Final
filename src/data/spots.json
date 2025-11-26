@@ -14,5 +14,12 @@
     "type": "pond",
     "coordinates": [45.6732, -111.0818],
     "fish": ["rainbow_trout"]
-  }
+  },
+   {
+    "id" : "ennis_lake",
+    "name": "Ennis Lake",
+    "type": "lake",
+    "coordinates" : [45.4322, -111.6890],
+    "fish": ["rainbow_trout"]
+   }
 ]
