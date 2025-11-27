@@ -1,26 +1,137 @@
+
 .map-page-container {
+  min-height: 100vh;
+  padding: 24px 16px 40px;
+  box-sizing: border-box;
+
+  background: #070707;
+  color: #f5f5f5;
+
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  align-items: center;
+  font-family: system-ui, sans-serif;
+}
+
+.map-header {
+  width: 100%;
+  max-width: 1100px;
+  text-align: center;
+  margin-bottom: 16px;
 }
 
 .map-title {
-  text-align: center;
-  margin-top: 10px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #ff8c42;
+  margin-bottom: 6px;
 }
 
-.search-bar {
-  text-align: center;
-  padding: 10px;
+.map-subtitle {
+  font-size: 14px;
+  color: #cccccc;
+  margin-bottom: 14px;
 }
 
-.search-bar input {
-  width: 250px;
-  padding: 6px;
-  margin-right: 10px;
+/* Search bar */
+.search-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.search-bar button {
-  padding: 6px 12px;
+.search-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #101010;
+  color: #f5f5f5;
+  font-size: 15px;
+}
+
+.search-input::placeholder {
+  color: #777;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #ff8c42;
+  box-shadow: 0 0 0 2px rgba(255, 140, 66, 0.3);
+}
+
+/* Map card */
+.map-card {
+  width: 100%;
+  max-width: 1100px;
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.map-view {
+  height: 480px;
+}
+
+
+.info-row {
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 18px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.info-card {
+  flex: 1;
+  min-width: 280px;
+  background: #050505;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.info-card-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff8c42;
+}
+
+.info-empty {
+  color: #aaaaaa;
+  font-size: 14px;
+}
+
+.results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.result-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #222;
   cursor: pointer;
+  font-size: 14px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-item:hover {
+  color: #ff8c42;
+}
+
+.result-type {
+  font-size: 12px;
+  color: #777;
 }
