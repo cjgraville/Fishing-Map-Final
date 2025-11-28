@@ -9,6 +9,12 @@ export default function FishingMapPage() {
   const [selectedWater, setSelectedWater] = useState(null);
   const [searchText, setSearchText] = useState("");
 
+  // favorites = array of water IDs
+  const [favorites, setFavorites] = useState([]);
+  // notes = { [waterId]: "text" }
+  const [notes, setNotes] = useState({});
+
+  // ---- Load waters from GeoJSON ----
   useEffect(() => {
     fetch("/data/FWP_Fishing_Access.geojson")
       .then((res) => res.json())
@@ -26,83 +32,165 @@ export default function FishingMapPage() {
             camping: f.properties.CAMPING,
             hunting: f.properties.HUNTING,
             acres: f.properties.ACRES,
-            //type: "FWP Spot",
           }));
         setWaters(points);
       })
       .catch((err) => console.error("Failed to load GeoJSON:", err));
   }, []);
 
-  const filteredWaters = searchText
-  ? (() => {
-      const lower = searchText.toLowerCase();
-
-      // 1. Find all river names in the mapping that partially match the user input
-      const matchedRivers = Object.keys(riverMapping).filter((river) =>
-        river.toLowerCase().includes(lower)
-      );
-
-      // 2. If any rivers match, gather ALL their access points
-      if (matchedRivers.length > 0) {
-        const accessNames = matchedRivers.flatMap(
-          (river) => riverMapping[river]
-        );
-        return waters.filter((w) => accessNames.includes(w.name));
+  // ---- Load favorites & notes from localStorage on first render ----
+  useEffect(() => {
+    try {
+      const storedFavs = JSON.parse(localStorage.getItem("favoriteWaters"));
+      if (Array.isArray(storedFavs)) {
+        setFavorites(storedFavs);
       }
+    } catch (e) {
+      console.warn("Could not parse favoriteWaters from localStorage", e);
+    }
 
-      // 3. Otherwise, fallback to matching access point names directly
-      return waters.filter((w) =>
-        w.name.toLowerCase().includes(lower)
-      );
-    })()
-  : [];
+    try {
+      const storedNotes = JSON.parse(localStorage.getItem("waterNotes"));
+      if (storedNotes && typeof storedNotes === "object") {
+        setNotes(storedNotes);
+      }
+    } catch (e) {
+      console.warn("Could not parse waterNotes from localStorage", e);
+    }
+  }, []);
 
+  // ---- Helper: save favorites to localStorage whenever they change ----
+  useEffect(() => {
+    localStorage.setItem("favoriteWaters", JSON.stringify(favorites));
+  }, [favorites]);
 
-  // FIXED: no longer overwrites the search bar
+  // ---- Helper: save notes to localStorage whenever they change ----
+  useEffect(() => {
+    localStorage.setItem("waterNotes", JSON.stringify(notes));
+  }, [notes]);
+
+  // ---- Search logic (river name mapping + fallback to spot names) ----
+  const filteredWaters = searchText
+    ? (() => {
+        const lower = searchText.toLowerCase();
+
+        const matchedRivers = Object.keys(riverMapping).filter((river) =>
+          river.toLowerCase().includes(lower)
+        );
+
+        if (matchedRivers.length > 0) {
+          const accessNames = matchedRivers.flatMap(
+            (river) => riverMapping[river]
+          );
+          return waters.filter((w) => accessNames.includes(w.name));
+        }
+
+        return waters.filter((w) =>
+          w.name.toLowerCase().includes(lower)
+        );
+      })()
+    : [];
+
   const handleSelectWater = (w) => {
-    setSelectedWater(w); 
+    setSelectedWater(w);
+  };
+
+  // ---- Favorites helpers ----
+  const toggleFavorite = (water) => {
+    if (!water) return;
+
+    setFavorites((prev) => {
+      const exists = prev.includes(water.id);
+      if (exists) {
+        return prev.filter((id) => id !== water.id);
+      } else {
+        return [...prev, water.id];
+      }
+    });
+  };
+
+  const isFavorite = selectedWater
+    ? favorites.includes(selectedWater.id)
+    : false;
+
+  const favoriteWaters = favorites
+    .map((id) => waters.find((w) => w.id === id))
+    .filter(Boolean);
+
+  // ---- Notes helper ----
+  const handleNotesChange = (waterId, value) => {
+    setNotes((prev) => ({
+      ...prev,
+      [waterId]: value,
+    }));
   };
 
   return (
-  <>
-    <h1 className="page-title">Montana Fishing Access Map</h1>
+    <>
+      <h1 className="page-title">Montana Fishing Access Map</h1>
 
-    <div className="map-page-container">
-      <div className="map-column">
-        <MapComponent
-          waters={waters}
-          selectedWater={selectedWater}
-          setSelectedWater={setSelectedWater}
-        />
-      </div>
-
-      <div className="side-column">
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search rivers or lakes..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+      <div className="map-page-container">
+        <div className="map-column">
+          <MapComponent
+            waters={waters}
+            selectedWater={selectedWater}
+            setSelectedWater={setSelectedWater}
           />
         </div>
 
-        {filteredWaters.length > 0 && (
-          <div className="search-results">
-            <h3>Search Results</h3>
-            <ul>
-              {filteredWaters.map((w) => (
-                <li key={w.id} onClick={() => handleSelectWater(w)}>
-                  {w.name}
-                </li>
-              ))}
-            </ul>
+        <div className="side-column">
+          {/* Search box */}
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Search rivers or lakes..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
           </div>
-        )}
 
-        {selectedWater && <InfoPanel water={selectedWater} />}
+          {/* Search results */}
+          {filteredWaters.length > 0 && (
+            <div className="search-results">
+              <h3>Search Results</h3>
+              <ul>
+                {filteredWaters.map((w) => (
+                  <li key={w.id} onClick={() => handleSelectWater(w)}>
+                    {w.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Info panel for selected water */}
+          {selectedWater && (
+            <InfoPanel
+              water={selectedWater}
+              isFavorite={isFavorite}
+              onToggleFavorite={() => toggleFavorite(selectedWater)}
+              notes={notes[selectedWater.id] || ""}
+              onChangeNotes={(val) =>
+                handleNotesChange(selectedWater.id, val)
+              }
+            />
+          )}
+
+          {/* Favorites list */}
+          {favoriteWaters.length > 0 && (
+            <div className="favorites-panel">
+              <h3>Favorites</h3>
+              <ul>
+                {favoriteWaters.map((w) => (
+                  <li key={w.id} onClick={() => setSelectedWater(w)}>
+                    {w.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  </>
-);
-
+    </>
+  );
 }

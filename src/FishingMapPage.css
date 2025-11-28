@@ -58,6 +58,13 @@
   border-radius: 6px;
 }
 
+.search-results h3 {
+  margin-top: 0;
+  margin-bottom: 6px;
+  font-size: 16px;
+  color: #ff6600;
+}
+
 .search-results ul {
   list-style: none;
   padding: 0;
@@ -83,17 +90,124 @@
 .info-panel {
   border: 2px solid #333;
   padding: 12px;
-  max-height: 250px;
+  max-height: 340px;
   overflow-y: auto;
   border-radius: 6px;
   background: #1a1a1a;
 }
 
+/* header row in the info panel */
+.info-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-header-row h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Favorite button */
+.favorite-btn {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 999px;
+  border: 1px solid #ff8c42;
+  background: transparent;
+  color: #ff8c42;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.favorite-btn:hover {
+  background: rgba(255, 140, 66, 0.15);
+}
+
+.favorite-btn--active {
+  background: #ff8c42;
+  color: #070707;
+}
+
+/* ===== Notes section ===== */
+.notes-section {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #333;
+}
+
+.notes-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f5f5f5;
+}
+
+.notes-textarea {
+  width: 100%;
+  min-height: 80px;
+  background: #222;
+  color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #444;
+  padding: 8px;
+  font-size: 14px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.notes-textarea::placeholder {
+  color: #aaaaaa;
+}
+
+.notes-textarea:focus {
+  outline: none;
+  border-color: #ff8800;
+  box-shadow: 0 0 6px rgba(255, 136, 0, 0.5);
+}
+
+/* ===== Favorites panel in sidebar ===== */
+.favorites-panel {
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #050505;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.favorites-panel h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #ff8c42;
+}
+
+.favorites-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.favorites-panel li {
+  padding: 4px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.favorites-panel li:hover {
+  color: #ff8c42;
+}
+
+/* ===== Page Title ===== */
 .page-title {
   text-align: center;
   font-size: 32px;
-  margin-top:15px;
-  margin-bottom:5px;
+  margin-top: 15px;
+  margin-bottom: 5px;
   color: #ff6600;
   letter-spacing: 1px;
 }
