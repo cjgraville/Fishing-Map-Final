@@ -80,6 +80,13 @@
         "coordinates" : [45.34442, -111.72309],
         "description": "Slower water, great for dry flies.",
         "fish": ["rainbow_trout", "mountain_whitefish"]
+      },
+      {
+        "segment_id": "madison_3",
+        "name": "Madison River – Valley Garden Fishing Access ",
+        "coordinates" : [45.36725, -111.70539],
+        "description": "Slower water, great for dry flies.",
+        "fish": ["rainbow_trout", "mountain_whitefish"]
       }
       
     ]

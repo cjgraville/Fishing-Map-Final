@@ -1,21 +1,25 @@
-export default function InfoPanel({ water, fish }) {
-  // Map water.fish IDs to actual fish objects
-  const fishList = water.fish.map(fid => fish.find(f => f.id === fid));
-
+export default function InfoPanel({ water }) {
   return (
-    <div style={{ display: 'flex', borderTop: '1px solid gray', height: '180px' }}>
-      <div style={{ flex: 1, padding: '10px', borderRight: '1px solid gray' }}>
-        <h2>{water.name}</h2>
-        <p>{water.description}</p>
-      </div>
-      <div style={{ flex: 1, padding: '10px' }}>
-        <h3>Fish Species</h3>
-        <ul>
-          {fishList.map((f, idx) => (
-            <li key={idx}><strong>{f.common_name}:</strong> {f.description}</li>
-          ))}
-        </ul>
-      </div>
+    <div className="info-panel">
+      <h2>{water.name}</h2>
+      <p>{water.description}</p>
+      <p><strong>Camping:</strong> {water.camping}</p>
+      <p><strong>Hunting:</strong> {water.hunting}</p>
+      <p><strong>Acres:</strong> {water.acres || "Unknown"}</p>
+      {water.webPage && (
+        <p>
+          <a href={water.webPage} target="_blank" rel="noopener noreferrer">
+            FWP Info Page
+          </a>
+        </p>
+      )}
+      {water.pdfMap && (
+        <p>
+          <a href={water.pdfMap} target="_blank" rel="noopener noreferrer">
+            PDF Map
+          </a>
+        </p>
+      )}
     </div>
   );
 }

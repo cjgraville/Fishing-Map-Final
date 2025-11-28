@@ -1,112 +1,108 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MapComponent from "./MapComponent";
 import InfoPanel from "./InfoPanel";
-import rivers from "./data/rivers.json";
-import spots from "./data/spots.json";
-import fish from "./data/fish.json";
 import "./FishingMapPage.css";
+import riverMapping from "./data/riverMapping.json";
 
 export default function FishingMapPage() {
+  const [waters, setWaters] = useState([]);
   const [selectedWater, setSelectedWater] = useState(null);
   const [searchText, setSearchText] = useState("");
 
-  // Flat map data from both sources
-  const waters = [
-    ...rivers.flatMap((river) =>
-      river.segments.map((seg) => ({
-        id: seg.segment_id,
-        name: seg.name,
-        lat: seg.coordinates[0],
-        lng: seg.coordinates[1],
-        description: seg.description,
-        fish: seg.fish,
-        type: "river_segment",
-      }))
-    ),
-    ...spots.map((spot) => ({
-      id: spot.id,
-      name: spot.name,
-      lat: spot.coordinates[0],
-      lng: spot.coordinates[1],
-      description: spot.description,
-      fish: spot.fish,
-      type: spot.type,
-    })),
-  ];
+  useEffect(() => {
+    fetch("/data/FWP_Fishing_Access.geojson")
+      .then((res) => res.json())
+      .then((data) => {
+        const points = data.features
+          .filter((f) => f.geometry?.type === "Point")
+          .map((f) => ({
+            id: f.id,
+            name: f.properties.NAME,
+            lat: Number(f.geometry.coordinates[1]),
+            lng: Number(f.geometry.coordinates[0]),
+            description: f.properties.BOAT_FAC || "No description",
+            webPage: f.properties.WEB_PAGE,
+            pdfMap: f.properties.PDFMAP,
+            camping: f.properties.CAMPING,
+            hunting: f.properties.HUNTING,
+            acres: f.properties.ACRES,
+            //type: "FWP Spot",
+          }));
+        setWaters(points);
+      })
+      .catch((err) => console.error("Failed to load GeoJSON:", err));
+  }, []);
 
-  // Filtered search results
   const filteredWaters = searchText
-    ? waters.filter((w) =>
-        w.name.toLowerCase().includes(searchText.toLowerCase())
-      )
-    : [];
+  ? (() => {
+      const lower = searchText.toLowerCase();
 
+      // 1. Find all river names in the mapping that partially match the user input
+      const matchedRivers = Object.keys(riverMapping).filter((river) =>
+        river.toLowerCase().includes(lower)
+      );
+
+      // 2. If any rivers match, gather ALL their access points
+      if (matchedRivers.length > 0) {
+        const accessNames = matchedRivers.flatMap(
+          (river) => riverMapping[river]
+        );
+        return waters.filter((w) => accessNames.includes(w.name));
+      }
+
+      // 3. Otherwise, fallback to matching access point names directly
+      return waters.filter((w) =>
+        w.name.toLowerCase().includes(lower)
+      );
+    })()
+  : [];
+
+
+  // FIXED: no longer overwrites the search bar
   const handleSelectWater = (w) => {
-    setSelectedWater(w);
-    setSearchText(w.name);
+    setSelectedWater(w); 
   };
 
   return (
-    <div className="map-page-container">
-      {/* Header */}
-      <div className="map-header">
-        <h1 className="map-title">Bozeman Fishing Map</h1>
-        <p className="map-subtitle">
-          Search for rivers, lakes, and access points around Bozeman.
-        </p>
+  <>
+    <h1 className="page-title">Montana Fishing Access Map</h1>
 
-        <div className="search-wrapper">
+    <div className="map-page-container">
+      <div className="map-column">
+        <MapComponent
+          waters={waters}
+          selectedWater={selectedWater}
+          setSelectedWater={setSelectedWater}
+        />
+      </div>
+
+      <div className="side-column">
+        <div className="search-box">
           <input
-            className="search-input"
             type="text"
-            placeholder="Search for river or lake..."
+            placeholder="Search rivers or lakes..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
         </div>
-      </div>
 
-      {/* Map */}
-      <div className="map-card">
-        <div className="map-view">
-          <MapComponent
-            waters={waters}
-            selectedWater={selectedWater}
-            setSelectedWater={setSelectedWater}
-          />
-        </div>
-      </div>
-
-      {/* Info panels */}
-      <div className="info-row">
-        {selectedWater && (
-          <div className="info-card">
-            <InfoPanel water={selectedWater} fish={fish} />
-          </div>
-        )}
-
-        <div className="info-card">
-          <h3 className="info-card-title">Search Results</h3>
-          {filteredWaters.length === 0 ? (
-            <p className="info-empty">No results found.</p>
-          ) : (
-            <ul className="results-list">
+        {filteredWaters.length > 0 && (
+          <div className="search-results">
+            <h3>Search Results</h3>
+            <ul>
               {filteredWaters.map((w) => (
-                <li
-                  key={w.id}
-                  className="result-item"
-                  onClick={() => handleSelectWater(w)}
-                >
-                  <span>{w.name}</span>
-                  <span className="result-type">
-                    {w.type === "river_segment" ? "River segment" : "Spot"}
-                  </span>
+                <li key={w.id} onClick={() => handleSelectWater(w)}>
+                  {w.name}
                 </li>
               ))}
             </ul>
-          )}
-        </div>
+          </div>
+        )}
+
+        {selectedWater && <InfoPanel water={selectedWater} />}
       </div>
     </div>
-  );
+  </>
+);
+
 }

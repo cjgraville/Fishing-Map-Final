@@ -1,44 +1,51 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import fishIconImg from './assets/icon1.png'; // import your icon
+import React, { useEffect } from "react";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import fishIconImg from "./assets/icon1.png"; // your icon
 
-// Move map when selectedWater changes
+// Component to move the map when selectedWater changes
 function MapMover({ position }) {
   const map = useMap();
-  if (position) map.setView(position, 12);
+  useEffect(() => {
+    if (position) {
+      map.flyTo(position, 14, { duration: 1.0 }); // zoom in to level 14
+    }
+  }, [position, map]);
   return null;
 }
 
-export default function MapComponent({ selectedWater, setSelectedWater, waters }) {
+export default function MapComponent({ waters, selectedWater, setSelectedWater }) {
   const bozemanPosition = [45.676, -111.042];
 
-  // Create Leaflet icon
   const fishIcon = L.icon({
     iconUrl: fishIconImg,
-    iconSize: [48, 48],       // width, height
-    iconAnchor: [24, 24],     // point where marker is anchored (center of icon)
-    popupAnchor: [0, -24]     // where popups appear relative to icon
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+    popupAnchor: [0, -12],
   });
 
   return (
-    <div style={{ flex: 1 }}>
-      <MapContainer center={bozemanPosition} zoom={11} style={{ height: '400px', width: '100%' }}>
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <MapMover position={selectedWater ? [selectedWater.lat, selectedWater.lng] : null} />
+    <MapContainer
+      center={bozemanPosition}
+      zoom={11}
+      style={{ height: "100%", width: "100%" }}
+    >
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-        {waters.map((water, idx) => (
-          <Marker
-            key={idx}
-            position={[water.lat, water.lng]}
-            icon={fishIcon}  // use the custom icon
-            eventHandlers={{
-              click: () => setSelectedWater(water)
-            }}
-          />
-        ))}
-      </MapContainer>
-    </div>
+      {/* Fly to selectedWater when clicked from search */}
+      <MapMover position={selectedWater ? [selectedWater.lat, selectedWater.lng] : null} />
+
+      {waters.map((water) => (
+        <Marker
+          key={water.id}
+          position={[water.lat, water.lng]}
+          icon={fishIcon}
+          eventHandlers={{
+            click: () => setSelectedWater(water),
+          }}
+        />
+      ))}
+    </MapContainer>
   );
 }
