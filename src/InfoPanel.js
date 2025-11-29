@@ -22,7 +22,7 @@ export default function InfoPanel({
         </button>
       </div>
 
-      <p>{water.description}</p>
+      <p><strong>Access: </strong>{water.description}</p>
       <p>
         <strong>Camping:</strong> {water.camping}
       </p>
