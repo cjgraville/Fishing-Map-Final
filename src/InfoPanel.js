@@ -61,7 +61,7 @@ export default function InfoPanel({
         <div className="notes-title">Your Notes</div>
         <textarea
           className="notes-textarea"
-          placeholder="Add notes about access, fish caught, water levels, flies that worked..."
+          placeholder="Add notes about access, fish caught, fly/bait used, water conditions, weather data, etc"
           value={notes}
           onChange={(e) => onChangeNotes(e.target.value)}
         />

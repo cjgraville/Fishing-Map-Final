@@ -29,18 +29,27 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  
+}
+
+.search-box {
+  background: #1a1a1a;
+  border: 2px solid #333;
+  padding: 8px;
+  border-radius: 6px;
 }
 
 /* ===== Search Box ===== */
 .search-box input {
   width: 100%;
+  box-sizing: border-box;
   padding: 10px;
   font-size: 16px;
   background: #1a1a1a;
   border: 2px solid #ff6600;
   color: #fff;
   border-radius: 6px;
-  outline: none;
+  outline: none; 
 }
 
 .search-box input:focus {

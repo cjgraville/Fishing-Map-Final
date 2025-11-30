@@ -127,7 +127,7 @@ export default function FishingMapPage() {
 
   return (
     <>
-      <h1 className="page-title">Montana Fishing Access Map</h1>
+      <h1 className="page-title">Montana Public Fishing Access Map</h1>
 
       <div className="map-page-container">
         <div className="map-column">
