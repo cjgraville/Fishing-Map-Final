@@ -1,3 +1,6 @@
+
+import React from "react";
+
 export default function InfoPanel({
   water,
   isFavorite,
@@ -7,22 +10,19 @@ export default function InfoPanel({
 }) {
   return (
     <div className="info-panel">
-      {/* header row: name + favorite button */}
       <div className="info-header-row">
-        <h2>{water.name}</h2>
+        <h2 className="info-title">{water.name}</h2>
         <button
           type="button"
           className={
-            "favorite-btn" +
-            (isFavorite ? " favorite-btn--active" : "")
+            "favorite-btn" + (isFavorite ? " favorite-btn--active" : "")
           }
           onClick={onToggleFavorite}
         >
-          {isFavorite ? "★ Favorited" : "☆ Add Favorite"}
+          {isFavorite ? "★ Favorite" : "☆ Favorite"}
         </button>
       </div>
-
-      <p><strong>Access: </strong>{water.description}</p>
+      <p className="info-description">{water.description}</p>
       <p>
         <strong>Camping:</strong> {water.camping}
       </p>
@@ -44,6 +44,7 @@ export default function InfoPanel({
           </a>
         </p>
       )}
+
       {water.pdfMap && (
         <p>
           <a
@@ -56,12 +57,14 @@ export default function InfoPanel({
         </p>
       )}
 
-      {/* Notes section */}
       <div className="notes-section">
-        <div className="notes-title">Your Notes</div>
+        <label htmlFor="notes-textarea" className="notes-label">
+          Notes for this spot
+        </label>
         <textarea
+          id="notes-textarea"
           className="notes-textarea"
-          placeholder="Add notes about access, fish caught, fly/bait used, water conditions, weather data, etc"
+          placeholder="Flows, preferred flies, access tips, fishing buddies, etc."
           value={notes}
           onChange={(e) => onChangeNotes(e.target.value)}
         />

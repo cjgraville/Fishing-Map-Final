@@ -1,3 +1,4 @@
+// src/FishingMapPage.js
 import React, { useState, useEffect } from "react";
 import MapComponent from "./MapComponent";
 import InfoPanel from "./InfoPanel";
@@ -59,12 +60,12 @@ export default function FishingMapPage() {
     }
   }, []);
 
-  // ---- Helper: save favorites to localStorage whenever they change ----
+  // ---- Save favorites to localStorage whenever they change ----
   useEffect(() => {
     localStorage.setItem("favoriteWaters", JSON.stringify(favorites));
   }, [favorites]);
 
-  // ---- Helper: save notes to localStorage whenever they change ----
+  // ---- Save notes to localStorage whenever they change ----
   useEffect(() => {
     localStorage.setItem("waterNotes", JSON.stringify(notes));
   }, [notes]);
@@ -74,6 +75,7 @@ export default function FishingMapPage() {
     ? (() => {
         const lower = searchText.toLowerCase();
 
+        // 1. river name mapping
         const matchedRivers = Object.keys(riverMapping).filter((river) =>
           river.toLowerCase().includes(lower)
         );
@@ -85,6 +87,7 @@ export default function FishingMapPage() {
           return waters.filter((w) => accessNames.includes(w.name));
         }
 
+        // 2. fallback to access name search
         return waters.filter((w) =>
           w.name.toLowerCase().includes(lower)
         );
