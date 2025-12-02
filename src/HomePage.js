@@ -56,9 +56,7 @@ export default function HomePage() {
               <h3 className="about-name">Connor Graville</h3>
               <p className="about-role">Data Engineer & Researcher</p>
               <p className="about-text">
-                Focused on mapping outdoor recreation data and public access
-                sites. Helps turn raw GIS data into something anglers can
-                actually use on the water.
+                I am a computer science major at Montana State Univeristy. I enjoy data and fishing.
               </p>
             </div>
           </div>

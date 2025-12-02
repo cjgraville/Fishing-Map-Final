@@ -22,6 +22,8 @@ export default function InfoPanel({
           {isFavorite ? "★ Favorite" : "☆ Favorite"}
         </button>
       </div>
+      
+      
       <p className="info-description">
         <strong>Access: </strong>
         {water.description}</p>
