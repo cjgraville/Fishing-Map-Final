@@ -23,8 +23,8 @@ export default function InfoPanel({
         </button>
       </div>
       
-      
       <p className="info-description">
+
         <strong>Access: </strong>
         {water.description}</p>
       <p>

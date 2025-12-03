@@ -18,7 +18,7 @@ export default function HomePage() {
         <div className="hero-section">
           <h1 className="home-title">Montana Fishing App</h1>
           <p className="home-subtitle">
-            Explore rivers, lakes, and public fishing access across Montana.
+            Explore rivers, lakes, reservoirs, streams & creeks across Montana.
           </p>
           <button className="enter-button" onClick={() => navigate("/map")}>
             Enter Map
