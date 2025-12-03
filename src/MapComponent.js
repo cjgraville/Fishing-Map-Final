@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import fishIconImg from "./assets/icon1.png"; // your icon
+import fishIconImg from "./assets/icon1.png"; 
 
 // Component to move the map when selectedWater changes
 function MapMover({ position }) {
   const map = useMap();
   useEffect(() => {
     if (position) {
-      map.flyTo(position, 14, { duration: 1.0 }); // zoom in to level 14
+      map.flyTo(position, 14, { duration: 1.0 }); 
     }
   }, [position, map]);
   return null;

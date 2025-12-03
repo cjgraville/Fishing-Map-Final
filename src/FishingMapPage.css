@@ -1,11 +1,10 @@
-/* ===== Layout ===== */
 .map-page-container {
   display: flex;
-  flex-direction: row; /* desktop: side by side */
+  flex-direction: row; 
   width: 95%;
   margin: 20px auto;
   font-family: Arial, sans-serif;
-  height: 85vh; /* desktop height */
+  height: 85vh; 
   gap: 20px;
   background: #0e0e0e; 
   color: #f5f5f5;
@@ -46,7 +45,7 @@
   letter-spacing: 1px;
 }
 
-/* ===== Search Box ===== */
+/* Search Box */
 .search-box {
   width: 100%;
   flex: 0 0 auto;
@@ -69,7 +68,7 @@
   box-shadow: 0 0 6px #ff8800;
 }
 
-/* ===== Search Results ===== */
+/* Search Results */
 .search-results {
   flex: 0 0 auto;
   overflow-y: auto;
@@ -106,7 +105,7 @@
   color: #000;
 }
 
-/* ===== Info Panel ===== */
+/* Info Panel */
 .info-panel {
   border: 2px solid #333;
   padding: 12px;
@@ -115,9 +114,9 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  overflow-y: auto; /* scroll if content too tall */
+  overflow-y: auto; 
   min-height: 150px;
-  max-height: 70vh; /* optional max height */
+  max-height: 70vh; 
   box-sizing: border-box;
 }
 
@@ -229,7 +228,7 @@
   color: #ff8c42;
 }
 
-/* ===== Responsive: Small Screens ===== */
+/* Responsive: Small Screens */
 @media (max-width: 768px) {
   .map-page-container {
     flex-direction: column; /* stack map + sidebar */

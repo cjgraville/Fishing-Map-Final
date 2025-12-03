@@ -15,7 +15,7 @@ export default function FishingMapPage() {
   // notes = { [waterId]: "text" }
   const [notes, setNotes] = useState({});
 
-  // ---- Load waters from GeoJSON ----
+  // Load waters from GeoJSON 
   useEffect(() => {
     fetch("/data/FWP_Fishing_Access.geojson")
       .then((res) => res.json())
@@ -39,7 +39,7 @@ export default function FishingMapPage() {
       .catch((err) => console.error("Failed to load GeoJSON:", err));
   }, []);
 
-  // ---- Load favorites & notes from localStorage on first render ----
+  // Load favorites & notes from localStorage on first render 
   useEffect(() => {
     try {
       const storedFavs = JSON.parse(localStorage.getItem("favoriteWaters"));
@@ -60,22 +60,22 @@ export default function FishingMapPage() {
     }
   }, []);
 
-  // ---- Save favorites to localStorage whenever they change ----
+  // Save favorites to localStorage whenever they change 
   useEffect(() => {
     localStorage.setItem("favoriteWaters", JSON.stringify(favorites));
   }, [favorites]);
 
-  // ---- Save notes to localStorage whenever they change ----
+  // Save notes to localStorage whenever they change 
   useEffect(() => {
     localStorage.setItem("waterNotes", JSON.stringify(notes));
   }, [notes]);
 
-  // ---- Search logic (river name mapping + fallback to spot names) ----
+  // Search logic (river name mapping + fallback to spot names) 
   const filteredWaters = searchText
     ? (() => {
         const lower = searchText.toLowerCase();
 
-        // 1. river name mapping
+        // river name mapping
         const matchedRivers = Object.keys(riverMapping).filter((river) =>
           river.toLowerCase().includes(lower)
         );
@@ -98,7 +98,7 @@ export default function FishingMapPage() {
     setSelectedWater(w);
   };
 
-  // ---- Favorites helpers ----
+  // Favorites helpers
   const toggleFavorite = (water) => {
     if (!water) return;
 
@@ -120,7 +120,7 @@ export default function FishingMapPage() {
     .map((id) => waters.find((w) => w.id === id))
     .filter(Boolean);
 
-  // ---- Notes helper ----
+  // Notes helper 
   const handleNotesChange = (waterId, value) => {
     setNotes((prev) => ({
       ...prev,
