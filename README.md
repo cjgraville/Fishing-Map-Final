@@ -56,8 +56,7 @@ GeoJSON (standard GIS format)
 📦 Installation
 
 1. Clone the Repository
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-   cd YOUR_REPO
+   git clone https://github.com/cjgraville/Fishing-Map-Final
 
 2. Install Node Modules
    npm install
