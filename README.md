@@ -1,3 +1,5 @@
+Team members: Connor Graville and Anthony Nania
+
 Here is the link to our google slides presentation:
 https://docs.google.com/presentation/d/1B2KfzLEXEFPIaeh25R75fVq3hWOBYh2DGJvol6AB_xo/edit?usp=sharing
 
