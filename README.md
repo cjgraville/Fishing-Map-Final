@@ -1,70 +1,181 @@
-# Getting Started with Create React App
+Montana Fishing Access Map
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React + Leaflet mapping application that displays Montana FWP fishing access sites using live GeoJSON data. Users can browse locations, view details, and interact with a fully responsive map UI.
 
-## Available Scripts
+📖 Table of Contents
+Overview
+Features
+Tech Stack
+Installation
+Dependencies
+Project Structure
+GeoJSON Data
+Map Rendering
+Scripts
+Screenshots
+Future Improvements
+License
 
-In the project directory, you can run:
+🔍 Overview
 
-### `npm start`
+This project provides an interactive map of Montana Fishing Access Sites using Leaflet and React.
+It loads a .geojson file, filters out all non-point features, converts geographic coordinates properly, and renders them as clickable map markers.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Each marker displays:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Site name
+Description
+Boat access info
+Webpage/PDF map links
+Camping & hunting access info
+Acreage
 
-### `npm test`
+The project is designed for performance — GeoJSON is loaded once using useEffect() and stored in state for fast searching and filtering.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+✨ Features
 
-### `npm run build`
+📍 Interactive map powered by Leaflet
+🧭 Zoom, pan, markers, popups
+🗂️ Loads and parses real Montana FWP GeoJSON data
+🔎 Searchable list of access points
+⚡ Lightweight and fast (Vite + React)
+📱 Fully responsive layout
+🧰 Clean, maintainable component structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🛠️ Tech Stack
+Frontend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+React (w/ Hooks)
+Vite (recommended for dev speed)
+TypeScript (optional)
+Leaflet
+React-Leaflet
+Data Format
+GeoJSON (standard GIS format)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+📦 Installation
 
-### `npm run eject`
+1. Clone the Repository
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+   cd YOUR_REPO
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Install Node Modules
+   npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🔧 Required Dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Install Leaflet + React-Leaflet:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+npm install leaflet react-leaflet
 
-## Learn More
+Import Leaflet CSS (required):
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+import "leaflet/dist/leaflet.css";
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Fix Leaflet’s missing marker icons (mandatory)
 
-### Code Splitting
+Leaflet does not load icons by default in Vite or React setups.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Add this near your map setup:
 
-### Analyzing the Bundle Size
+import L from "leaflet";
+delete L.Icon.Default.prototype.\_getIconUrl;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+L.Icon.Default.mergeOptions({
+iconRetinaUrl: new URL("leaflet/dist/images/marker-icon-2x.png", import.meta.url).toString(),
+iconUrl: new URL("leaflet/dist/images/marker-icon.png", import.meta.url).toString(),
+shadowUrl: new URL("leaflet/dist/images/marker-shadow.png", import.meta.url).toString(),
+});
 
-### Making a Progressive Web App
+🗂️ Project Structure
+/project-root
+│
+├── public/
+│ └── data/
+│ └── FWP_Fishing_Access.geojson
+│
+├── src/
+│ ├── components/
+│ │ ├── MapComponent.jsx
+│ │ ├── FishingMap.jsx
+│ │ └── InfoPanel.jsx
+│ │
+│ ├── App.jsx
+│ └── main.jsx
+│
+└── package.json
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+🌍 GeoJSON Data
 
-### Advanced Configuration
+The app loads the dataset once:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+useEffect(() => {
+fetch("/data/FWP_Fishing_Access.geojson")
+.then((res) => res.json())
+.then((data) => {
+const points = data.features
+.filter((f) => f.geometry?.type === "Point")
+.map((f) => ({
+id: f.id,
+name: f.properties.NAME,
+lat: Number(f.geometry.coordinates[1]),
+lng: Number(f.geometry.coordinates[0]),
+description: f.properties.BOAT_FAC || "No description",
+webPage: f.properties.WEB_PAGE,
+pdfMap: f.properties.PDFMAP,
+camping: f.properties.CAMPING,
+hunting: f.properties.HUNTING,
+acres: f.properties.ACRES,
+}));
+setWaters(points);
+});
+}, []);
 
-### Deployment
+✔ Yes — this only runs one time.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The user search feature filters the already-loaded array, NOT the file.
 
-### `npm run build` fails to minify
+🗺️ Map Rendering
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Your map loads in FishingMap or MapComponent (depending on how you split it).
+
+Minimal example:
+
+<MapContainer center={[46.8797, -110.3626]} zoom={7} scrollWheelZoom={true}>
+<TileLayer
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  />
+{waters.map((w) => (
+<Marker key={w.id} position={[w.lat, w.lng]}>
+<Popup>{w.name}</Popup>
+</Marker>
+))}
+</MapContainer>
+
+🏃 Scripts
+Start Dev Server
+npm run dev
+
+Build for Production
+npm run build
+
+Preview Build
+npm run preview
+
+🖼️ Screenshots (Optional)
+![Map Screenshot](./screenshots/map.png)
+![Sidebar](./screenshots/sidebar.png)
+
+🚀 Future Improvements
+
+🐟 Fish species filters
+
+🎣 River segment browsing
+
+💾 Local data caching
+
+📲 Mobile-first map redesign
+
+🌐 Backend API integration
+
+🧭 User GPS location + nearest access points
