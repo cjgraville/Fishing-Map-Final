@@ -166,10 +166,6 @@ npm run build
 Preview Build
 npm run preview
 
-🖼️ Screenshots (Optional)
-![Map Screenshot](./screenshots/map.png)
-![Sidebar](./screenshots/sidebar.png)
-
 🚀 Future Improvements
 
 🐟 Fish species filters
